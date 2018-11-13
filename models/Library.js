@@ -9,7 +9,9 @@ var LibrarySchema = new mongoose.Schema({
   author: String,
   numPages: Number,
   pubDate: Date,
-  cover: String //Base64 Encoded - For more info, see https://www.base64-image.de/
+  cover: String, //Base64 Encoded - For more info, see https://www.base64-image.de/
+  synopsis: String,
+  rating: Number
 });
 
 mongoose.model('Library', LibrarySchema);

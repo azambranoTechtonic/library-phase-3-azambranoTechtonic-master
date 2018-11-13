@@ -4,4 +4,4 @@ var mongoose = require('mongoose');
 // For more info, see https://docs.mlab.com/connecting/#connect-string.
 
 // An example MongoDB URI connection string is shown below.  You will need to replace all of it with your own information.
-// mongoose.connect('mongodb://{db user}:{password for db user}@ds047752.mlab.com:47752/library-80422');
+mongoose.connect('mongodb://lexdbo:atun00@ds255253.mlab.com:55253/lexlibrary');

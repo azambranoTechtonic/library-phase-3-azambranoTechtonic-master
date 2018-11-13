@@ -21,12 +21,12 @@ app.get('/', (req, res) => {
       res.send(data);
   });
 });
+app.use('/library', LibraryController);
 
 //Route for 404 page
-app.get('*', (req, res) => res.status(404).send('Not found')); // HTTP status 404: NotFound
+app.get('*', (req, res) => res.status(404).send('Not found Lex!!!!!')); // HTTP status 404: NotFound
 
 //Route for all library API's (pointed to controller)
-app.use('/library', LibraryController);
 
 //Create a server that listens on port 8080 of your computer. (https://www.w3schools.com/nodejs/met_server_listen.asp)
 app.listen(port, () => console.log(`Listening on port ${port}!`));
