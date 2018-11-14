@@ -14,6 +14,21 @@ const router = express.Router();
 // limit
 // Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing. Defaults to '100kb'.
 router.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
+// router.use(bodyParser.json({ extended: true, limit: '5mb'}));
+
+
+// CREATES A NEW BOOK IN YOUR LIBRARY DB
+// This POST route for your library creates a new entry in your database.
+router.post('/postMany', function (req, res) {
+
+  // Uses the Mongoose create method on your model.
+  Library.insertMany(
+    req.body.books,
+    (err, response) => {
+      if (err) return res.status(500).send("There was a problem adding the information to the database.");
+      res.status(200).send(response);
+    });
+});
 
 // CREATES A NEW BOOK IN YOUR LIBRARY DB
 // This POST route for your library creates a new entry in your database.
@@ -116,6 +131,14 @@ router.get('/:id', function (req, res) {
 
 // Create a DELETE route DELETES A SPECIFIC SINGLE BOOK FROM YOUR DATABASE here.
 
+router.delete('/deleteBy', function (req, res) {
+  console.log(req.query);
+    Library.deleteMany( {$or: [{author: req.query.author},{title: req.query.title}] }, function (err, books) {
+        if (err) return res.status(500).send("There was a problem finding Searched Books in the Library.");
+        res.status(200).send(books);
+    });
+});
+
 router.delete('/:id', function (req, res) {
     Library.findByIdAndRemove(req.params.id, function (err, book) {
         if (err) return res.status(500).send("There was a problem deleting this Book.");
@@ -139,6 +162,8 @@ router.delete('/delauthor/:author', function (req, res) {
 // Create a PUT route that UPDATES A SPECIFIC SINGLE BOOK IN THE DATABASE here.
 
 router.put('/:id', function (req, res) {
+  console.log(req.params.id);
+  console.log(req.body);
   Library.findByIdAndUpdate(
     req.params.id,
     req.body,
